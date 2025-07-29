@@ -2,7 +2,7 @@ import arcpy
 import os
 import datetime
 
-# --- Configurable Base Directories ---_
+# --- Configurable Base Directories ---
 base_dir = r'E:\CFRI\Colorado_Fire_Severity\Fire_Perimeters'
 update_dir = os.path.join(base_dir, 'UPDATE')
 download_gdb = os.path.join(update_dir, 'dwnld_perimeters.gdb')
