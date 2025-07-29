@@ -50,7 +50,7 @@ with arcpy.da.SearchCursor("true_dupl_lyr", all_fields) as cursor:
         else:
             print(f"⚠️ Skipping record with NULL True_Duplicate flag (OID unknown): {row}")
 
-# Choose best non_null source per intersect_group_field
+# Choose the best non_null source per intersect_group_field
 best_rows = []
 
 for intersect_group_field, rows in grouped_rows.items():
