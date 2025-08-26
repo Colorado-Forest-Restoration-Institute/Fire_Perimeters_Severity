@@ -4,6 +4,8 @@ This project contains a set of **ArcPy scripts** used to compile, clean, and upd
 The workflow supports both **regular updates** (e.g., new data releases) and **quality control** (e.g., duplicate handling, provenance tracking).  
 The final product feeds into the **Colorado Fire Tracker** and related analysis projects.  
 
+---
+
 ## Workflow Overview
 
 1. **Download Data (`01_download_data.py`)**  
@@ -22,3 +24,47 @@ The final product feeds into the **Colorado Fire Tracker** and related analysis 
    - Constructs consistent **Fire IDs** (MTBS-style) if missing.  
    - Standardizes names, labels, and units.  
    - Cleans fields, calculates acres, and writes to the final geodatabase.  
+
+---
+
+## Repository Layout
+
+```
+project-root/
+│
+├── 01_download_data.py
+├── 02_duplicate_check.py
+├── 03_finalize_update.py
+├── README.md   ← you are here
+└── UPDATE/     ← working geodatabase folder
+```
+
+---
+
+## Requirements
+
+- ArcGIS Pro (with arcpy)  
+- Python 3.x (as installed with ArcGIS Pro)  
+- pandas, numpy  
+
+---
+
+## Usage
+
+1. Run scripts in order:  
+   ```
+   python 01_download_data.py
+   python 02_duplicate_check.py
+   python 03_finalize_update.py
+   ```
+2. Final output will be written to:  
+   ```
+   Colorado_Fire_Perimeters_1984_2024.gdb/Colorado_Fire_Perimeters_1984_2024
+   ```
+
+---
+
+## Notes
+
+- Provenance and duplicate-resolution logic are documented in inline comments of `03_finalize_update.py`.  
+- This repository is designed for repeatable updates as new fire perimeter data becomes available.  
