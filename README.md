@@ -7,17 +7,16 @@ The workflow supports both **regular updates** (e.g., new data releases) and **q
 
 ## Workflow Overview
 
-1. **Download Data (`01_download_data.py`)**  
-   - Pulls source perimeter datasets (MTBS, FACTS, BLM, etc.)  
-   - Loads into the `UPDATE/` workspace.  
+1. **Download Data (`1_data_attribute_mapping.py`)**  
+   - Pulls source perimeter datasets (MTBS, NIFC, FACTS, BLM, etc.)  
    - May include normalization (field names, projections).  
 
-2. **Duplicate Check (`02_duplicate_check.py`)**  
+2. **Duplicate Check (`2_tag_duplicates.py`)**  
    - Identifies overlapping/duplicate perimeters from different sources.  
    - Flags true duplicates and assigns a `priority` ranking to sources.  
    - Creates `duplication_check_output` in `perimeter_update.gdb`.  
 
-3. **Finalize Update (`03_finalize_update.py`)**  
+3. **Finalize Update (`3_finalize_perimeters.py`)**  
    - For each duplicate group, selects the “best” record by priority.  
    - Merges attributes and dissolves geometry.  
    - Constructs consistent **Fire IDs** (MTBS-style) if missing.  
