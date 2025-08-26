@@ -31,16 +31,16 @@ The workflow supports both **regular updates** (e.g., new data releases) and **q
 Fire_Perimeters/
 │
 ├── SCRIPTS/ 
-│├── 1_data_attribute_mapping.py
-│├── 2_tag_duplicates.py
-│├── 3_finalize_perimeters.py
+│	├── 1_data_attribute_mapping.py
+│	├── 2_tag_duplicates.py
+│	├── 3_finalize_perimeters.py
 ├── README.md   
 ├── UPDATE/     ← working geodatabase folder
-│├── dwnld_perimeters.gdb
-│├── perimeter_update.gdb
-│├── scratch
+│	├── dwnld_perimeters.gdb
+│	├── perimeter_update.gdb
+│	├── scratch
 ├── Colorado_Fire_Perimeters_1984_2024.gdb/
- ├── Colorado_Fire_Perimeters_1984_2024
+ 	├── Colorado_Fire_Perimeters_1984_2024
 ```
 
 ---
