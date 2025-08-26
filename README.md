@@ -3,8 +3,6 @@
 This project contains a set of **ArcPy scripts** used to compile, clean, and update fire perimeter data for Colorado.  
 The workflow supports both **regular updates** (e.g., new data releases) and **quality control** (e.g., duplicate handling, provenance tracking).  
 
-The final product feeds into the **Colorado Fire Tracker** and related analysis projects.  
-
 ---
 
 ## Workflow Overview
