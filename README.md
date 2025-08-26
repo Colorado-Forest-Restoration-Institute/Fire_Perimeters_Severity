@@ -39,6 +39,8 @@ Fire_Perimeters/
 │├── dwnld_perimeters.gdb
 │├── perimeter_update.gdb
 │├── scratch
+├── Colorado_Fire_Perimeters_1984_2024.gdb/
+ ├── Colorado_Fire_Perimeters_1984_2024
 ```
 
 ---
