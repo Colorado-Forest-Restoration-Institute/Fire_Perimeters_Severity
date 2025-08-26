@@ -2,6 +2,7 @@
 
 This project contains a set of **ArcPy scripts** used to compile, clean, and update fire perimeter data for Colorado.  
 The workflow supports both **regular updates** (e.g., new data releases) and **quality control** (e.g., duplicate handling, provenance tracking).  
+
 The final product feeds into the **Colorado Fire Tracker** and related analysis projects.  
 
 ---
@@ -27,16 +28,20 @@ The final product feeds into the **Colorado Fire Tracker** and related analysis 
 
 ---
 
-## Repository Layout
+## Project Structure
 
 ```
-project-root/
+Fire_Perimeters/
 │
-├── 01_download_data.py
-├── 02_duplicate_check.py
-├── 03_finalize_update.py
-├── README.md   ← you are here
-└── UPDATE/     ← working geodatabase folder
+├── SCRIPTS/ 
+│├── 1_data_attribute_mapping.py
+│├── 2_tag_duplicates.py
+│├── 3_finalize_perimeters.py
+├── README.md   
+├── UPDATE/     ← working geodatabase folder
+│├── dwnld_perimeters.gdb
+│├── perimeter_update.gdb
+│├── scratch
 ```
 
 ---
@@ -66,5 +71,4 @@ project-root/
 
 ## Notes
 
-- Provenance and duplicate-resolution logic are documented in inline comments of `03_finalize_update.py`.  
 - This repository is designed for repeatable updates as new fire perimeter data becomes available.  
