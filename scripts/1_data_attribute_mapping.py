@@ -1,6 +1,5 @@
 import arcpy
 import os
-import datetime
 
 # --- Configurable Base Directories ---
 base_dir = r'E:\CFRI\Colorado_Fire_Severity\Fire_Perimeters'
