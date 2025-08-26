@@ -1,4 +1,4 @@
-Colorado Fire Perimeter Processing
+﻿Colorado Fire Perimeter Processing
 
 This project contains a set of ArcPy scripts used to compile, clean, and update fire perimeter data for Colorado.
 The workflow supports both regular updates (e.g., new data releases) and quality control (e.g., duplicate handling, provenance tracking).
@@ -20,74 +20,44 @@ Colorado_Fire_Perimeters/
 └── README.md
 
 Workflow Overview
-
-Download Data (01_download_data.py)
-
-Pulls source perimeter datasets (MTBS, FACTS, BLM, etc.)
-
-Loads into the UPDATE/ workspace.
-
-May include normalization (field names, projections).
-
-Duplicate Check (02_duplicate_check.py)
-
-Identifies overlapping/duplicate perimeters from different sources.
-
-Flags true duplicates and assigns a priority ranking to sources.
-
-Creates duplication_check_output in perimeter_update.gdb.
-
-Finalize Update (03_finalize_update.py)
-
-For each duplicate group, selects the “best” record by priority.
-
-Merges attributes and dissolves geometry.
-
-Constructs consistent Fire IDs (MTBS-style) if missing.
-
-Standardizes names, labels, and units.
-
-Cleans fields, calculates acres, and writes to the final geodatabase.
+1. Download Data (01_download_data.py)
+o Pulls source perimeter datasets (MTBS, FACTS, BLM, etc.)
+o Loads into the UPDATE/ workspace.
+o May include normalization (field names, projections).
+2. Duplicate Check (02_duplicate_check.py)
+o Identifies overlapping/duplicate perimeters from different sources.
+o Flags true duplicates and assigns a priority ranking to sources.
+o Creates duplication_check_output in perimeter_update.gdb.
+3. Finalize Update (03_finalize_update.py)
+o For each duplicate group, selects the “best” record by priority.
+o Merges attributes and dissolves geometry.
+o Constructs consistent Fire IDs (MTBS-style) if missing.
+o Standardizes names, labels, and units.
+o Cleans fields, calculates acres, and writes to the final geodatabase.
 
 Requirements
-
-ArcGIS Pro with ArcPy (tested with Pro 3.x)
-
-Python packages (included with ArcGIS Pro):
-
-arcpy, os, re, collections
+• ArcGIS Pro with ArcPy (tested with Pro 3.x)
+• Python packages (included with ArcGIS Pro):
+o arcpy, os, re, collections
 
 Usage
-
-Clone/copy this repo into your working directory.
-
-Update file paths in each script to point to your environment.
-
-Run scripts in order:
-
+1. Clone/copy this repo into your working directory.
+2. Update file paths in each script to point to your environment.
+3. Run scripts in order:
 python 01_download_data.py
 python 02_duplicate_check.py
 python 03_finalize_update.py
-
-
-Final layer is written to:
-
-Fire_Perimeters/Colorado_Fire_Perimeters_1984_2024.gdb/Colorado_Fire_Perimeters_1984_2024
+4. Final layer is written to:
+5. Fire_Perimeters/Colorado_Fire_Perimeters_1984_2024.gdb/Colorado_Fire_Perimeters_1984_2024
 
 Notes & Conventions
-
-All intermediate products are stored in UPDATE/perimeter_update.gdb.
-
-Fire IDs follow the MTBS convention: CO + lat + lon + YYYYMMDD.
-
-Untreated fires at time of visit are coded as Untreated, not Pre-Treatment.
-
-Scripts contain inline documentation and print status messages for traceability.
+• All intermediate products are stored in UPDATE/perimeter_update.gdb.
+• Fire IDs follow the MTBS convention: CO + lat + lon + YYYYMMDD.
+• Untreated fires at time of visit are coded as Untreated, not Pre-Treatment.
+• Scripts contain inline documentation and print status messages for traceability.
 
 Maintenance
+• Update source download links in 01_download_data.py as needed.
+• Add/remove source priority rules in 02_duplicate_check.py if new datasets are included.
+• Review final outputs periodically for field name drift or schema mismatches.
 
-Update source download links in 01_download_data.py as needed.
-
-Add/remove source priority rules in 02_duplicate_check.py if new datasets are included.
-
-Review final outputs periodically for field name drift or schema mismatches.
