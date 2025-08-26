@@ -1,6 +1,47 @@
+"""
+Colorado Fire Perimeter Find Duplicate Perimeters & Provenance Script
+--------------------------------------------------------
+
+This script identifies duplicate or overlapping fire perimeter records across
+multiple datasets, normalizes fire names, and assigns a common provenance ID
+to groups of perimeters that represent the same fire event. It also creates a
+provenance table to track the original source IDs for each grouped perimeter.
+
+Input:
+    - raw_Colorado_Fire_Perimeters_duplicates
+        (output from '1_data_attribute_mapping.py')
+
+Outputs:
+    - dup_check_output (feature class with grouping fields and Provenance_IDs)
+    - Fire_Perimeter_Provenance (table linking Provenance_IDs to original
+      source identifiers and attributes)
+
+Example directory structure:
+
+    E:\CFRI\Colorado_Fire_Severity\Fire_Perimeters\
+        ├── UPDATE\
+        │     ├── dwnld_perimeters.gdb\
+        │     └── perimeter_update.gdb\
+        │            ├── raw_Colorado_Fire_Perimeters_duplicates
+        │            ├── dup_check_output                 (output)
+        │            └── Fire_Perimeter_Provenance        (output)
+
+What the script does:
+    1. Replaces inconsistent fire name strings (e.g., "Unknown", "Unnamed") with NULL
+    2. Normalizes fire labels (removing suffixes, non-alphanumeric chars, etc.)
+    3. Builds proximity groups using a 500m near table (same year only)
+    4. Groups by:
+        - Proximity + Name similarity
+        - Proximity + Start date
+    5. Assigns a Provenance_ID to each group (or unique ID for ungrouped perimeters)
+    6. Creates a provenance table mapping Provenance_IDs back to original source IDs
+    7. Outputs a cleaned perimeter feature class with duplication fields
+
+Future enhancements will include tuning similarity thresholds.
+"""
+
 import arcpy
 import os
-import datetime
 import re
 from collections import defaultdict
 from difflib import SequenceMatcher

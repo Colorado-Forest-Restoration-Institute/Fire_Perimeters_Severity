@@ -1,3 +1,31 @@
+"""
+Finalize Colorado Fire Perimeter Updates
+
+Purpose:
+--------
+This script finalizes the Colorado fire perimeter dataset by:
+1. Selecting the "best" record for each set of duplicate fire perimeters
+   using a defined field priority system.
+2. Dissolving duplicates into a single perimeter with normalized attributes.
+3. Assigning unique Fire IDs (MTBS-style IDs: CO + lat + lon + YYYYMMDD).
+4. Calculating GIS Acres based on geometry.
+5. Cleaning up fire names and labels.
+6. Renaming/dropping fields to match the final schema.
+7. Writing the cleaned dataset into the main geodatabase.
+
+Workflow:
+---------
+Input:
+- Scratch GDB containing the `duplication_check_output` feature class
+  (results of earlier duplicate detection script).
+- Final GDB: Colorado_Fire_Perimeters_1984_2024.gdb
+
+Outputs:
+--------
+- Final feature class: Colorado_Fire_Perimeters_1984_2024
+
+"""
+
 import arcpy
 import os
 import re
