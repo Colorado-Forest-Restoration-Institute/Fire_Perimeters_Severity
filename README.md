@@ -69,3 +69,4 @@ Fire_Perimeters/
 ## Notes
 
 - This repository is designed for repeatable updates as new fire perimeter data becomes available.  
+- Future enhancements will contain information on processing fire severity.
