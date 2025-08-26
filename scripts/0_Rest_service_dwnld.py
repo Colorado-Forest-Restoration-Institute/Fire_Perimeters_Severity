@@ -1,5 +1,7 @@
-''' NEEDS EDITING - WANT TO DOWNLOAD AS GDB WHEN POSSIBLE
-TO KEEP THE FULL FIELD NAMES - OTHERWISE THEY ARE GETTING CLIPPED '''
+''' 
+WORKING - IN PROGRESS - CODE NOT COMPLETED
+Code to download data directly from online sources of record to feed into script 1
+'''
 
 
 # Import libraries
