@@ -1,3 +1,55 @@
+"""
+Colorado Fire Perimeter Integration and Attribute Mapping Script
+------------------------------------------
+
+This script prepares and standardizes wildfire and prescribed fire perimeter datasets
+from multiple sources into a single geodatabase for further analysis. It applies a
+consistent field schema, filters features by year, and merges outputs into a unified
+feature class. Sources currently included:
+
+    - MTBS
+    - WFIGS (Interagency & Historical)
+    - GeoMAC
+    - BLM Colorado
+    - USFS FACTS
+
+⚠ Pre-processing required:
+At this stage, the script assumes that perimeter data from the various sources has
+already been downloaded, clipped to Colorado, and stored in a geodatabase called:
+
+    dwnld_perimeters.gdb
+
+This geodatabase should reside inside the UPDATE folder defined in `base_dir`.
+Each source must be placed in `dwnld_perimeters.gdb` under the expected
+feature class names (e.g., mtbs_download, wfigs_interagency_download, etc.).
+
+Example directory structure:
+
+    E:\CFRI\Colorado_Fire_Severity\Fire_Perimeters\
+        ├── UPDATE\
+        │     ├── dwnld_perimeters.gdb\
+        │     │      ├── mtbs_download
+        │     │      ├── wfigs_interagency_download
+        │     │      ├── wfigs_historical_download
+        │     │      ├── geomac_download
+        │     │      ├── blm_download
+        │     │      └── usfs_download
+        │     └── perimeter_update.gdb   (scratch workspace, created by script)
+
+The script then:
+    - Copies and standardizes attributes across datasets
+    - Adds missing fields to match a final schema
+    - Applies mapping rules to harmonize naming, dates, and identifiers
+    - Filters perimeters to a given year range (default: 1984–2024)
+    - Selects prescribed fire treatments for BLM and USFS
+    - Merges all outputs into a single feature class:
+        raw_Colorado_Fire_Perimeters_duplicates
+    - Repairs geometry and removes extraneous fields
+
+Future enhancements will include automating the pre-processing steps so that
+downloaded datasets can be ingested directly.
+"""
+
 import arcpy
 import os
 
