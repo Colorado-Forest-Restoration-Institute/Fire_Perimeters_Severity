@@ -196,6 +196,13 @@ with arcpy.da.UpdateCursor(out_dissolve, ["n_Fire_Name", "n_Fire_Label"]) as cur
         row[1] = re.sub(r'\s+U(NIT)?[\s\w\-\\/]*$', '', row[1], flags=re.IGNORECASE) if row[1] else row[1]
         cursor.updateRow(row)
 
+# Change wildland fire use to wildfire
+with arcpy.da.UpdateCursor(out_dissolve, ["n_Fire_Type"]) as cursor:
+    for row in cursor:
+        if row[0] == "Wildland Fire Use":
+            row[0] = "Wildfire"
+        cursor.updateRow(row)
+
 # Rename/update final fields
 keep_fields = ['objectid', 'shape', 'shape_length', 'shape_area', "provenance_id"]  # all lowercase
 fields = [f.name for f in arcpy.ListFields(out_dissolve)]
