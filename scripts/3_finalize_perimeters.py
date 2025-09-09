@@ -201,6 +201,7 @@ with arcpy.da.UpdateCursor(out_dissolve, ["n_Fire_Type"]) as cursor:
     for row in cursor:
         if row[0] == "Wildland Fire Use":
             row[0] = "Wildfire"
+
         cursor.updateRow(row)
 
 # Rename/update final fields
