@@ -1,5 +1,5 @@
 """
-Finalize Colorado Fire Perimeter Updates
+Finalize Colorado Fire Perimeter Updates.
 
 Purpose:
 --------
