@@ -1,5 +1,5 @@
 """
-Colorado Fire Perimeter Find Duplicate Perimeters & Provenance Script.
+Colorado Fire Perimeter Find Duplicate Perimeters & Provenance Script
 --------------------------------------------------------
 
 This script identifies duplicate or overlapping fire perimeter records across

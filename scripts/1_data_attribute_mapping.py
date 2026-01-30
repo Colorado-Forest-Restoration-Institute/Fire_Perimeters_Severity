@@ -1,5 +1,5 @@
 """
-Colorado Fire Perimeter Integration and Attribute Mapping Script.
+Colorado Fire Perimeter Integration and Attribute Mapping Script
 ------------------------------------------
 
 This script prepares and standardizes wildfire and prescribed fire perimeter datasets
