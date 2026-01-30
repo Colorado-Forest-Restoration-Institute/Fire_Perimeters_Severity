@@ -33,15 +33,15 @@ from collections import defaultdict
 
 arcpy.env.overwriteOutput = True
 
-base_dir = r'E:\CFRI\Colorado_Fire_Severity\Fire_Perimeters'
-update_dir = os.path.join(base_dir, 'UPDATE')
-scratch_gdb = os.path.join(update_dir, 'perimeter_update.gdb')
+base_dir = r'C:\Users\semue\Documents\GITHUB\Fire_Perimeters_Severity'
+data_dir = os.path.join(base_dir, 'data')
+scratch_gdb = os.path.join(data_dir, 'perimeter_update.gdb')
 arcpy.env.workspace = scratch_gdb
 
 dupl_perimeters = os.path.join(scratch_gdb, 'duplication_check_output')
 
-final_gdb = os.path.join(base_dir, 'Colorado_Fire_Perimeters_1984_2024.gdb')
-final_perimeters = os.path.join(final_gdb, 'Colorado_Fire_Perimeters_1984_2024')
+final_gdb = os.path.join(data_dir, 'final_perimeter_update.gdb')
+final_perimeters = os.path.join(final_gdb, 'fire_perimeters_update')
 
 # Select best row data
 print("Selecting best row of data based on priority among duplicates")

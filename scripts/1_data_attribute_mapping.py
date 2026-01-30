@@ -54,10 +54,10 @@ import arcpy
 import os
 
 # --- Configurable Base Directories ---
-base_dir = r'E:\CFRI\Colorado_Fire_Severity\Fire_Perimeters'
-update_dir = os.path.join(base_dir, 'UPDATE')
-download_gdb = os.path.join(update_dir, 'dwnld_perimeters.gdb')
-scratch_gdb = os.path.join(update_dir, 'perimeter_update.gdb')
+base_dir = r'C:\Users\semue\Documents\GITHUB\Fire_Perimeters_Severity'
+data_dir = os.path.join(base_dir, 'data')
+download_gdb = os.path.join(data_dir, 'dwnld_perimeters.gdb')
+scratch_gdb = os.path.join(data_dir, 'perimeter_update.gdb')
 
 arcpy.env.workspace = scratch_gdb
 arcpy.env.overwriteOutput = True
@@ -68,8 +68,8 @@ tmp_mapping = os.path.join(scratch_gdb, "tmp_mapping")
 # --- Final Output for Combined Perimeters ---
 combined_perimeters = os.path.join(scratch_gdb, "raw_Colorado_Fire_Perimeters_duplicates")
 
-dt_start = 1984  # START DATE for filter
-dt_end = 2024  # END DATE for filter
+dt_start = 2025  # START DATE for filter
+dt_end = 2026  # END DATE for filter
 
 
 def add_new_fields(fc, final_field_list):
@@ -124,12 +124,12 @@ def process_fire_layer(input_fc, output_fc, mapping, final_field_list, final_out
 
 
 # Perimeter feature classes
-MTBS = os.path.join(download_gdb, "mtbs_download")
+#MTBS = os.path.join(download_gdb, "mtbs_download")
 WFIGS_INTERAGENCY = os.path.join(download_gdb, "wfigs_interagency_download")
-WFIGS_HISTORICAL = os.path.join(download_gdb, "wfigs_historical_download")
-GEOMAC = os.path.join(download_gdb, "geomac_download")
-BLM = os.path.join(download_gdb, "blm_download")
-USFS = os.path.join(download_gdb, "usfs_download")
+#WFIGS_HISTORICAL = os.path.join(download_gdb, "wfigs_historical_download")
+#GEOMAC = os.path.join(download_gdb, "geomac_download")
+#BLM = os.path.join(download_gdb, "blm_download")
+#USFS = os.path.join(download_gdb, "usfs_download")
 
 
 # Dictionary of final fields
@@ -251,21 +251,21 @@ usfs_mapping = {
 tmp_mapping = os.path.join(scratch_gdb, "tmp_mapping")
 
 # MTBS
-process_fire_layer(MTBS, tmp_mapping, mtbs_mapping, final_fields,
-                   os.path.join(scratch_gdb, 'mapping_mtbs'), dt_start, dt_end)
+#process_fire_layer(MTBS, tmp_mapping, mtbs_mapping, final_fields,
+#                   os.path.join(scratch_gdb, 'mapping_mtbs'), dt_start, dt_end)
 
 # WFIGS interagency
 process_fire_layer(WFIGS_INTERAGENCY, tmp_mapping, wfigs_interagency_mapping, final_fields,
                    os.path.join(scratch_gdb, 'mapping_wfigs_interagency'), dt_start, dt_end)
 
 # WFIGS historical
-process_fire_layer(WFIGS_HISTORICAL, tmp_mapping, wfigs_historical_mapping, final_fields,
-                   os.path.join(scratch_gdb, 'mapping_wfigs_historical'), dt_start, dt_end)
+#process_fire_layer(WFIGS_HISTORICAL, tmp_mapping, wfigs_historical_mapping, final_fields,
+#                   os.path.join(scratch_gdb, 'mapping_wfigs_historical'), dt_start, dt_end)
 
 # GeoMAC
-process_fire_layer(GEOMAC, tmp_mapping, geomac_mapping, final_fields,
-                   os.path.join(scratch_gdb, 'mapping_geomac'), dt_start, dt_end)
-
+#process_fire_layer(GEOMAC, tmp_mapping, geomac_mapping, final_fields,
+#                   os.path.join(scratch_gdb, 'mapping_geomac'), dt_start, dt_end)
+'''
 # BLM Colorado
 # Select prescribed fire activities
 blm_where_clause = (
@@ -295,7 +295,7 @@ FACTS_where_clause = (
 arcpy.MakeFeatureLayer_management(USFS, "usfs_lyr", FACTS_where_clause)
 process_fire_layer("usfs_lyr", tmp_mapping, usfs_mapping, final_fields,
                    os.path.join(scratch_gdb, 'mapping_usfs'), dt_start, dt_end)
-
+'''
 # Combine all perimeters
 mapping_list = arcpy.ListFeatureClasses("mapping_*")
 perimeters_merge = arcpy.Merge_management(mapping_list,

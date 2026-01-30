@@ -47,18 +47,18 @@ from collections import defaultdict
 from difflib import SequenceMatcher
 
 # Configuration
-base_dir = r'E:\CFRI\Colorado_Fire_Severity\Fire_Perimeters'
-update_dir = os.path.join(base_dir, 'UPDATE')
-scratch_gdb = os.path.join(update_dir, 'perimeter_update.gdb')
+base_dir = r'C:\Users\semue\Documents\GITHUB\Fire_Perimeters_Severity'
+data_dir = os.path.join(base_dir, 'data')
+scratch_gdb = os.path.join(data_dir, 'perimeter_update.gdb')
+final_gdb = os.path.join(data_dir, 'final_perimeter_update.gdb')
 
 arcpy.env.workspace = scratch_gdb
 arcpy.env.overwriteOutput = True
 
 # File and Layer paths
 input_fc = os.path.join(scratch_gdb, 'raw_Colorado_Fire_Perimeters_duplicates')
-#input_fc = os.path.join(scratch_gdb, "Colorado_Fire_Perimeters_duplicates_test")  #TEST FILE
 temp_copy = os.path.join(scratch_gdb, 'wrk_fires_start')
-provenance_table = os.path.join(scratch_gdb, "Fire_Perimeter_Provenance")
+provenance_table = os.path.join(final_gdb, "Fire_Perimeter_Provenance")
 final_output = os.path.join(scratch_gdb, 'duplication_check_output')
 
 # Create a copy of all fire perimeters as duplicates
@@ -266,16 +266,22 @@ with arcpy.da.UpdateCursor(temp_copy, [oid_field, true_duplicate_field]) as curs
             cursor.updateRow(row)
 
 # Assign Provenance_ID based on final True Duplicate field or oid counter when not grouped
-max_oid = max(row[0] for row in arcpy.da.SearchCursor(temp_copy, [oid_field]))
-oid_counter = 1
-with arcpy.da.UpdateCursor(temp_copy, [oid_field, true_duplicate_field, "Provenance_ID"]) as cursor:
-    for row in cursor:
-        if row[1] is not None:
-            row[2] = row[1]
+dup_id_map = {}
+counter = 1
+with arcpy.da.UpdateCursor(temp_copy, [true_duplicate_field, "n_Year", "Provenance_ID"]) as cursor:
+    for true_dup, year, prov_id in cursor:
+        if prov_id:
+            continue
+        if true_dup is not None:
+            if true_dup not in dup_id_map:
+                dup_id_map[true_dup] = counter
+                counter += 1
+            new_prov = f"{year}{dup_id_map[true_dup]:03d}"
         else:
-            row[2] = max_oid + oid_counter
-            oid_counter += 1
-        cursor.updateRow(row)
+            new_prov = f"{year}{counter:03d}"
+            counter += 1
+
+        cursor.updateRow((true_dup, year, new_prov))
 
 # Create provenance table to track all contributing source IDs
 print("Creating provenance table")
